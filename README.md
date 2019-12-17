@@ -1,4 +1,4 @@
 # KCURL
- - Usage
-    go build<br/>
-    kcurl -h<br/>
+## Usage
+- go build
+- kcurl -h
