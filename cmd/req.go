@@ -45,6 +45,12 @@ func reqRun(cmd *cobra.Command, args []string) {
 		log.Printf("%v", err)
 	}
 
+	if isJson {
+		headers = append(headers, "Content-type:application/json")
+	} else {
+		headers = append(headers, "Content-type:application/x-www-form-urlencoded")
+	}
+
 	reqArgs := strings.Join(parameters, "&")
 	for _, name := range args {
 		for _, item := range items {
@@ -63,13 +69,15 @@ var headers []string
 var path string
 var parameters []string
 var body string
+var isJson bool
 
 func init() {
 	rootCmd.AddCommand(reqCmd)
 	reqCmd.Flags().StringVarP(&env, "env", "e", "dev", "env:dev,online")
 	reqCmd.Flags().StringVarP(&option, "option", "o", "", "option:GET,POST,OPTIONS")
 	reqCmd.Flags().StringVarP(&path, "path", "p", "/", "path:get path")
-	reqCmd.Flags().StringSliceVarP(&headers, "", "H", nil, "headers:req head")
+	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
 	reqCmd.Flags().StringVarP(&body, "body", "b", "", "request body")
+	reqCmd.Flags().BoolVarP(&isJson, "json", "J", true, "json:is json or form")
 }

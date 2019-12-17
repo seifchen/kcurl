@@ -18,17 +18,21 @@ func init() {
 	}
 }
 
-func DoReq(url, option, path string, headers []string, args string, body interface{}) error {
+func DoReq(url, option, path string, headers []string, args string, body string) error {
 	var err error
 	var req *http.Request
-	option = strings.ToUpper(option)
+
 	uri := url + path
 	if args != "" {
 		uri = uri + "?" + args
 	}
+
+	reqBody := strings.NewReader(body)
+
+	option = strings.ToUpper(option)
 	switch option {
 	case "POST":
-		req, err = http.NewRequest("POST", uri, nil)
+		req, err = http.NewRequest("POST", uri, reqBody)
 	case "OPTIONS":
 		req, err = http.NewRequest("OPTIONS", uri, nil)
 	default:
