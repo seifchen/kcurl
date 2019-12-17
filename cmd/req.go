@@ -79,5 +79,5 @@ func init() {
 	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
 	reqCmd.Flags().StringVarP(&body, "body", "b", "", "request body")
-	reqCmd.Flags().BoolVarP(&isJson, "json", "J", true, "json:is json or form")
+	reqCmd.Flags().BoolVarP(&isJson, "json", "j", true, "json:is json or form")
 }
