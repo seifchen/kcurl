@@ -57,7 +57,7 @@ func reqRun(cmd *cobra.Command, args []string) {
 			if name == item.Name && env == item.Env {
 				err := req.DoReq(item.Url, option, path, headers, reqArgs, body)
 				if err != nil {
-					log.Printf("req:%v error:%e", item, err)
+					log.Printf("req:%v error:%s", item, err.Error())
 				}
 			}
 		}
