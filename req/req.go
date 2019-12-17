@@ -30,7 +30,7 @@ func DoReq(url, option, path string, headers []string, args string, body interfa
 	case "POST":
 		req, err = http.NewRequest("POST", uri, nil)
 	case "OPTIONS":
-		req, err = http.NewRequest("POST", uri, nil)
+		req, err = http.NewRequest("OPTIONS", uri, nil)
 	default:
 		req, err = http.NewRequest("GET", uri, nil)
 	}

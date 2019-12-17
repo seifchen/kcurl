@@ -69,7 +69,7 @@ func init() {
 	reqCmd.Flags().StringVarP(&env, "env", "e", "dev", "env:dev,online")
 	reqCmd.Flags().StringVarP(&option, "option", "o", "", "option:GET,POST,OPTIONS")
 	reqCmd.Flags().StringVarP(&path, "path", "p", "/", "path:get path")
-	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
+	reqCmd.Flags().StringSliceVarP(&headers, "", "H", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
 	reqCmd.Flags().StringVarP(&body, "body", "b", "", "request body")
 }
