@@ -16,8 +16,8 @@ limitations under the License.
 package cmd
 
 import (
-	"fmt"
 	"log"
+	"strings"
 
 	"github.com/seifchen/kcurl/req"
 
@@ -45,11 +45,11 @@ func reqRun(cmd *cobra.Command, args []string) {
 		log.Printf("%v", err)
 	}
 
+	reqArgs := strings.Join(parameters, "&")
 	for _, name := range args {
 		for _, item := range items {
 			if name == item.Name && env == item.Env {
-				fmt.Println(args)
-				err := req.DoReq(item.Url, option, path, headers, nil)
+				err := req.DoReq(item.Url, option, path, headers, reqArgs, body)
 				if err != nil {
 					log.Printf("req:%v error:%e", item, err)
 				}
@@ -62,6 +62,7 @@ var option string
 var headers []string
 var path string
 var parameters []string
+var body string
 
 func init() {
 	rootCmd.AddCommand(reqCmd)
@@ -70,4 +71,5 @@ func init() {
 	reqCmd.Flags().StringVarP(&path, "path", "p", "/", "path:get path")
 	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
+	reqCmd.Flags().StringVarP(&body, "body", "b", "", "request body")
 }
