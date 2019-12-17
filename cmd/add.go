@@ -65,7 +65,6 @@ func init() {
 	rootCmd.AddCommand(addCmd)
 	addCmd.Flags().StringVarP(&env, "env", "e", "dev", "env:dev,online")
 	addCmd.Flags().StringVarP(&url, "url", "u", "", "url")
-
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command

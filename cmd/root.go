@@ -20,6 +20,8 @@ import (
 	"log"
 	"os"
 
+	"github.com/spf13/cobra/doc"
+
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -52,6 +54,8 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
+	err := doc.GenMarkdownTree(rootCmd, "./")
 
 	home, err := homedir.Dir()
 	if err != nil {

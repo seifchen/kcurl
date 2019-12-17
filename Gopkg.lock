@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:7cb4fdca4c251b3ef8027c90ea35f70c7b661a593b9eeae34753c65499098bb1"
+  name = "github.com/cpuguy83/go-md2man"
+  packages = ["md2man"]
+  pruneopts = "UT"
+  revision = "7762f7e404f8416dfa1d9bb6a8c192aa9acb4d19"
+  version = "v1.0.10"
+
+[[projects]]
   digest = "1:abeb38ade3f32a92943e5be54f55ed6d6e3b6602761d74b4aab4c9dd45c18abd"
   name = "github.com/fsnotify/fsnotify"
   packages = ["."]
@@ -69,6 +77,14 @@
   version = "v1.6.0"
 
 [[projects]]
+  branch = "master"
+  digest = "1:c0d79013cb6aa64cb62568bf71bdaf9d6f9bf87a0c8574c2c35d13b2fb2d1c31"
+  name = "github.com/russross/blackfriday"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "a925a152c144ea7de0f451eaf2f7db9e52fa005a"
+
+[[projects]]
   digest = "1:bb495ec276ab82d3dd08504bbc0594a65de8c3b22c6f2aaa92d05b73fbf3a82e"
   name = "github.com/spf13/afero"
   packages = [
@@ -88,9 +104,12 @@
   version = "v1.3.0"
 
 [[projects]]
-  digest = "1:e096613fb7cf34743d49af87d197663cfccd61876e2219853005a57baedfa562"
+  digest = "1:abe9f3f23399646a6263682cacc9e86969f6c7e768f0ef036449926aa24cbbef"
   name = "github.com/spf13/cobra"
-  packages = ["."]
+  packages = [
+    ".",
+    "doc",
+  ]
   pruneopts = "UT"
   revision = "f2b07da1e2c38d5f12845a4f607e2e1018cbb1f5"
   version = "v0.0.5"
@@ -171,7 +190,9 @@
   analyzer-version = 1
   input-imports = [
     "github.com/mitchellh/go-homedir",
+    "github.com/russross/blackfriday",
     "github.com/spf13/cobra",
+    "github.com/spf13/cobra/doc",
     "github.com/spf13/viper",
   ]
   solver-name = "gps-cdcl"

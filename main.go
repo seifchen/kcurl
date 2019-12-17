@@ -15,8 +15,11 @@ limitations under the License.
 */
 package main
 
-import "github.com/seifchen/kcurl/cmd"
+import (
+	"github.com/seifchen/kcurl/cmd"
+)
 
 func main() {
-  cmd.Execute()
+
+	cmd.Execute()
 }

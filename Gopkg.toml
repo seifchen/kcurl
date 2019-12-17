@@ -24,6 +24,7 @@
 #   go-tests = true
 #   unused-packages = true
 
+required = ["github.com/russross/blackfriday"]
 
 [[constraint]]
   name = "github.com/mitchellh/go-homedir"
@@ -36,6 +37,10 @@
 [[constraint]]
   name = "github.com/spf13/viper"
   version = "1.6.1"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/russross/blackfriday"
 
 [prune]
   go-tests = true
