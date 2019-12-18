@@ -50,13 +50,17 @@ func reqRun(cmd *cobra.Command, args []string) {
 	reqArgs := strings.Join(parameters, "&")
 	for _, name := range args {
 		for _, item := range items {
-			if name == item.Name && env == item.Env {
+			if env != "" && item.Env != env {
+				continue
+			}
+			if name == item.Name {
 				err := req.DoReq(item.Url, option, path, headers, reqArgs, body)
 				if err != nil {
 					log.Printf("req:%v error:%s", item, err.Error())
 				}
 			}
 		}
+
 	}
 }
 
@@ -69,8 +73,8 @@ var isJson bool
 
 func init() {
 	rootCmd.AddCommand(reqCmd)
-	reqCmd.Flags().StringVarP(&env, "env", "e", "dev", "env:dev,online")
-	reqCmd.Flags().StringVarP(&option, "option", "o", "", "option:GET,POST,OPTIONS")
+	reqCmd.Flags().StringVarP(&env, "env", "e", "", "env:dev,online")
+	reqCmd.Flags().StringVarP(&option, "option", "o", "GET", "option:GET,POST,OPTIONS")
 	reqCmd.Flags().StringVarP(&path, "path", "p", "/", "path:get path")
 	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
