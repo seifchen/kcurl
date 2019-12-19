@@ -60,7 +60,6 @@ func reqRun(cmd *cobra.Command, args []string) {
 				}
 			}
 		}
-
 	}
 }
 

@@ -43,7 +43,7 @@ func DoReq(url, option, path string, headers []string, args string, body string)
 	}
 
 	for _, header := range headers {
-		h := strings.Split(header, ":")
+		h := strings.SplitN(header, ":", 2)
 		if len(h) == 2 {
 			req.Header.Add(h[0], h[1])
 		}
