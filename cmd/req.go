@@ -93,5 +93,5 @@ func init() {
 	reqCmd.Flags().StringSliceVarP(&headers, "header", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
 	reqCmd.Flags().StringVarP(&body, "body", "", "", "request body")
-	reqCmd.Flags().StringVarP(&contentType, "type", "", "json", "content-type:json,form;default:json")
+	reqCmd.Flags().StringVarP(&contentType, "type", "", "json", "content-type:json,form")
 }
