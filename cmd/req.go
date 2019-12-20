@@ -17,6 +17,7 @@ package cmd
 
 import (
 	"log"
+	"os"
 	"strings"
 
 	"github.com/seifchen/kcurl/req"
@@ -32,6 +33,27 @@ var reqCmd = &cobra.Command{
 	Short: "request url use name",
 	Long: `request url use name and path、params、header and so on, 
 	If you use post the default content-type is json.`,
+	PreRun: func(cmd *cobra.Command, args []string) {
+		if len(args) < 1 {
+			log.Println("At least one args")
+			os.Exit(1)
+		}
+		switch strings.ToLower(contentType) {
+		case "json":
+			headers = append(headers, "Content-type:application/json")
+		case "form":
+			headers = append(headers, "Content-type:application/x-www-form-urlencoded")
+		default:
+			log.Printf("--type Not support Content-Type:%s\nUse \"kcurl req --help\" for more information", contentType)
+			os.Exit(1)
+		}
+		option = strings.ToUpper(option)
+		if option != "GET" && option != "POST" && option != "OPTIONS" {
+			log.Printf("--option Not support:%s\nUse \"kcurl req --help\" for more information", option)
+			os.Exit(1)
+		}
+
+	},
 	Run: reqRun,
 }
 
@@ -39,12 +61,6 @@ func reqRun(cmd *cobra.Command, args []string) {
 	items, err := todo.ReadItems(viper.GetString("datafile"))
 	if err != nil {
 		log.Printf("%v", err)
-	}
-
-	if isJson {
-		headers = append(headers, "Content-type:application/json")
-	} else {
-		headers = append(headers, "Content-type:application/x-www-form-urlencoded")
 	}
 
 	reqArgs := strings.Join(parameters, "&")
@@ -68,15 +84,14 @@ var headers []string
 var path string
 var parameters []string
 var body string
-var isJson bool
+var contentType string
 
 func init() {
 	rootCmd.AddCommand(reqCmd)
-	reqCmd.Flags().StringVarP(&env, "env", "e", "", "env:dev,online")
 	reqCmd.Flags().StringVarP(&option, "option", "o", "GET", "option:GET,POST,OPTIONS")
 	reqCmd.Flags().StringVarP(&path, "path", "p", "/", "path:get path")
-	reqCmd.Flags().StringSliceVarP(&headers, "headers", "", nil, "headers:req head")
+	reqCmd.Flags().StringSliceVarP(&headers, "header", "", nil, "headers:req head")
 	reqCmd.Flags().StringSliceVarP(&parameters, "params", "", nil, "parameters")
-	reqCmd.Flags().StringVarP(&body, "body", "b", "", "request body")
-	reqCmd.Flags().BoolVarP(&isJson, "json", "j", true, "json:is json or form")
+	reqCmd.Flags().StringVarP(&body, "body", "", "", "request body")
+	reqCmd.Flags().StringVarP(&contentType, "type", "", "json", "content-type:json,form;default:json")
 }
