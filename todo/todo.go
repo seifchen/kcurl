@@ -46,6 +46,6 @@ func (i *Item) SetEnv(env string) {
 	}
 }
 
-func (i *Item) SetUrl(url string) {
-	i.Url = url
+func (i *Item) SetName(name string) {
+	i.Name = name
 }

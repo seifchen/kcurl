@@ -60,21 +60,17 @@ func formatRes(res *http.Response) {
 	req := res.Request
 	uri := req.URL.RequestURI()
 
-	s1 := fmt.Sprintf("%s %s %s\nHost: %s\n%s",
+	reqMessage := fmt.Sprintf("%s %s %s\nHost: %s\n%s",
 		req.Method, uri, req.Proto, req.Host, joinHeaders(req.Header))
-	fmt.Println(s1)
-
-	s := fmt.Sprintf("%v %v\n", res.Proto, res.Status)
-	s = fmt.Sprintf("%v%v", s, joinHeaders(res.Header))
-	fmt.Println(s)
 
 	body, err := ioutil.ReadAll(res.Body)
 	res.Body.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
+	resMessage := fmt.Sprintf("%v %v\n%v\n%s", res.Proto, res.Status, joinHeaders(res.Header), string(body))
 
-	fmt.Println(string(body))
+	fmt.Printf("%s\n%s\n\n", reqMessage, resMessage)
 }
 
 func joinHeaders(headers http.Header) string {
@@ -84,5 +80,4 @@ func joinHeaders(headers http.Header) string {
 	}
 	s := buffer.String()
 	return s
-
 }

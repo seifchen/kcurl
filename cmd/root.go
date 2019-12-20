@@ -20,8 +20,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/spf13/cobra/doc"
-
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -31,6 +29,7 @@ import (
 var (
 	cfgFile  string
 	dataFile string
+	env      string
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -55,8 +54,6 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	err := doc.GenMarkdownTree(rootCmd, "./")
-
 	home, err := homedir.Dir()
 	if err != nil {
 		log.Println("Unable to detect home directory. Please set data use --datafile.")
@@ -65,16 +62,10 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&dataFile, "datafile", home+string(os.PathSeparator)+".tridos.json",
 		"data file to store urls")
 
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kcurl.yaml)")
 	viper.BindPFlag("datafile", rootCmd.PersistentFlags().Lookup("datafile"))
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.PersistentFlags().StringVarP(&env, "env", "", "", "env:dev,online")
 }
 
 // initConfig reads in config file and ENV variables if set.

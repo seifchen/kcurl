@@ -45,27 +45,17 @@ func listRun(cmd *cobra.Command, args []string) {
 		log.Printf("%v", err)
 	}
 	// sort.Sort(todo.ByPri(items))
-	w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
+	w := tabwriter.NewWriter(os.Stdout, 5, 0, 5, ' ', 0)
 	for _, i := range items {
-		// if allOpt || i.Done == doneOpt {
-		fmt.Fprintln(w, i.Name+"\t"+i.Env+"\t"+i.Url+"\t")
-		// }
+		if env == "" {
+			fmt.Fprintln(w, i.Name+"\t"+i.Env+"\t"+i.Url+"\t")
+		} else if i.Env == env {
+			fmt.Fprintln(w, i.Name+"\t"+i.Env+"\t"+i.Url+"\t")
+		}
 	}
 	w.Flush()
 }
 
 func init() {
 	rootCmd.AddCommand(listCmd)
-	// listCmd.Flags().BoolVar(&doneOpt, "done", false, "Show 'done' Todos")
-	// listCmd.Flags().BoolVar(&allOpt, "all", false, "Show 'all' Todos")
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// listCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
